@@ -1,0 +1,95 @@
+@import 'font.scss';
+@import 'reset.scss';
+
+#app {
+  min-height: 100vh;
+}
+#wrap {
+  min-width: 1024px;
+}
+.container {
+  padding-top: 40px;
+  box-sizing: border-box;
+  border: 1px solid #000;
+}
+.inner {
+  position: relative;
+  padding: 0 40px 40px;
+  box-sizing: border-box;
+  border: 1px solid red;
+}
+[class^='btn'] {
+  display: inline-block;
+  padding: 0 15px;
+  font-weight: 700;
+  text-align: center;
+  box-sizing: border-box;
+  white-space: nowrap;
+  overflow: hidden;
+  vertical-align: middle;
+  letter-spacing: -0.5px;
+}
+
+[class^='btn'][class*='primary'] {
+  color: #fff;
+  background-color: $mint-50;
+  &:active {
+    background-color: $mint-30;
+  }
+  &:disabled,
+  &.disabled {
+    background-color: $gray-40;
+  }
+}
+
+[class^='btn'][class*='lg'] {
+  min-width: 155px;
+  height: 50px;
+  line-height: 50px;
+  border-radius: 15px;
+  padding: 0 20px;
+  font-size: 16px;
+}
+[class^='btn'][class*='md'] {
+  min-width: 80px;
+  height: 44px;
+  line-height: 44px;
+  border-radius: 10px;
+  font-size: 14px;
+}
+[class^='btn'][class*='sm'] {
+  min-width: 75px;
+  height: 30px;
+  padding: 0 15px;
+  line-height: 30px;
+  border-radius: 15px;
+  font-size: 12px;
+}
+
+//title
+.title-h1 {
+  font-size: 32px;
+  line-height: 40px;
+}
+.title-h2 {
+  font-size: 24px;
+  line-height: 30px;
+}
+.title-h3 {
+  font-size: 20px;
+  line-height: 28px;
+}
+
+.search-detail {
+  i {
+    &.ic-search-detail {
+      width: 16px;
+      height: 16px;
+      margin-left: 2px;
+      background: url(../images/ic-filter-16.svg) no-repeat center;
+    }
+    &.ic-ex {
+      background-image: url(../images/ic-delete-16.svg);
+    }
+  }
+}

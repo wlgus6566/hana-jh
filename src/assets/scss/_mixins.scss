@@ -1,0 +1,15 @@
+@mixin safeBottom($px: 0) {
+  bottom: calc(#{$px} + env(safe-area-inset-bottom));
+}
+@mixin safeTop($px: 0) {
+  top: calc(#{$px} + env(safe-area-inset-top));
+}
+
+@mixin blind {
+  position: absolute !important;
+  z-index: -1;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+}
