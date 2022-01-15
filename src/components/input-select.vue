@@ -2,6 +2,8 @@
   <div
       :class="{
          'select-wrap': true,
+         sort: type === 'sort',
+         maxWidth: maxWidth,
          focused: focused,
          disabled: disabled,
          placeholder: placeholder && !value,
@@ -32,10 +34,12 @@
 
 <script>
 export default {
-  name: "base-select",
+  name: "input-select",
   data() {
     return {
-    }
+      focused: false,
+      abc: true,
+    };
   },
   inheritAttrs: false,
   props: {
@@ -45,6 +49,7 @@ export default {
     disabled: Boolean,
     error: String,
     placeholder: String,
+    maxWidth: Boolean
   },
   model: {
     event: 'selectChange',
@@ -54,6 +59,7 @@ export default {
       return {
         ...this.$listeners,
         focusin: (event) => {
+          console.log(this);
           this.focused = true;
           this.$emit('focusin', event);
         },
@@ -62,9 +68,11 @@ export default {
           this.$emit('focusout', event);
         },
         change: (event) => {
+          console.log(this)
           console.log(event.target.value);
+          this.abc = true;
           this.$emit('selectChange', event.target.value);
-          this.$emit('change', event);
+          //this.$emit('change', event);
         },
       };
     },
@@ -75,14 +83,18 @@ export default {
 <style lang="scss" scoped>
 .select-wrap {
   position: relative;
+  flex: 1 1 auto;
   background: #fff;
+  &.maxWidth {
+    max-width: 89px;
+  }
   select {
     position: relative;
     width: 100%;
     font-size: 14px;
     height: 44px;
     line-height: 20px;
-    padding: 0 47px 0 15px;
+    padding: 0 44px 0 15px;
     border-radius: 10px;
     border: 1px solid $gray-40;
   }
@@ -113,5 +125,17 @@ export default {
   line-height: 18px;
   font-size: 12px;
   letter-spacing: -0.5px;
+}
+.sort {
+  width: auto;
+  select {
+    display: inline-flex;
+    padding: 12px 20px 12px 0;
+    height: 44px;
+    border: none;
+  }
+  &:before {
+    right: 0;
+  }
 }
 </style>
