@@ -83,10 +83,10 @@
             <td class="content">
               <div class="content-inner">
                 <span class="flag-primary-sm" v-if="item.impo">중요</span>
-                <router-link :to="`/qna/${item.id}`">
+                <router-link :to="`/qna/${item.num}`">
                   {{ item.content }}
                 </router-link>
-                <i class="icon-new" v-if="NewFlag(item.date, 14)"></i>
+                <i class="icon-new" v-if="NewFlag(item.date, 10)"></i>
               </div>
             </td>
             <td>
@@ -108,7 +108,9 @@
           </tr>
         </template>
       </board-table>
-      <no-data v-else/>
+      <no-data v-else
+              noDataText='배정된 상담 문의가 아직 없습니다.'
+      />
       <pagination
           v-model="paginationInfo.page"
           :per-page="paginationInfo.size"
@@ -126,7 +128,7 @@ import InputSelect from "@/components/input-select";
 import SearchDetailTxtBtn from "@/components/search-detail-txt-btn";
 import InputText from "@/components/input-text";
 import TabList from "@/components/tab-list";
-import NumberOfTotal from "@/components/numberOfTotal";
+import NumberOfTotal from "@/components/number-of-total";
 import BoardTable from "@/components/board-table";
 import NoData from "@/components/no-data";
 
@@ -147,8 +149,8 @@ export default {
   data() {
     return {
       paginationInfo: {
-        page: 1, // 현재페이지
-        size: 5, // 한페이지에 뿌려줄 갯수
+        page: 1,
+        size: 5,
         list: [], // 백엔드에서 받은 글 목록
         total: 30, // 백엔드에서 받은 전체 글의 갯수
         options: {

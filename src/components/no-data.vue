@@ -1,13 +1,19 @@
 <template>
   <div class="no-data-wrap">
     <i class="icon-no-data">노데이터</i>
-    <p>‘텍스트’ 에 대한 검색 결과가 없습니다.</p>
+    <p v-html="noDataText" ></p>
   </div>
 </template>
 
 <script>
 export default {
-  name: "no-data"
+  name: "no-data",
+  props: {
+    noDataText: {
+      type: String,
+      required: true
+    },
+  },
 }
 </script>
 
