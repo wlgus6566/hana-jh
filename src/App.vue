@@ -1,11 +1,7 @@
 <template>
   <div id="app">
     <div id="wrap">
-      <div class="container">
-        <div class="inner">
-          <router-view/>
-        </div>
-      </div>
+        <router-view/>
     </div>
   </div>
 </template>

@@ -103,6 +103,29 @@ body {
     color: $orange-50;
   }
 }
+/* hr */
+.wide-gray {
+  height: 10px;
+  border: none;
+  background: $gray-20;
+}
+.bar {
+  position: relative;
+  margin-left: 10px;
+  padding-left: 11px;
+  &::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 0;
+    display: block;
+    width: 1px;
+    height: 14px;
+    margin-top: -7px;
+    background: #eee;
+  }
+}
+
 //title
 .title-h1 {
   font-size: 32px;
@@ -255,3 +278,24 @@ body {
   }
 }
 
+/* bullet */
+.bullet-list {
+  margin-top: 10px;
+  .bullet-txt {
+    position: relative;
+    padding-left: 8px;
+    font-size: 12px;
+    line-height: 18px;
+    color: $gray-60;
+    word-break: keep-all;
+    &:before {
+      content: '';
+      position: absolute;
+      top: 7px;
+      left: 0;
+      width: 3px;
+      height: 3px;
+      background-color: $gray-50;
+    }
+  }
+}

@@ -11,7 +11,6 @@
       }"
   >
     <select
-      :value="value"
       :disabled="disabled"
       v-on="listeners"
       v-bind="$attrs"
@@ -38,13 +37,11 @@ export default {
   data() {
     return {
       focused: false,
-      abc: true,
     };
   },
   inheritAttrs: false,
   props: {
     type: String,
-    value: String,
     selectOptions: Array,
     disabled: Boolean,
     error: String,
@@ -53,6 +50,7 @@ export default {
   },
   model: {
     event: 'selectChange',
+    prop: 'value'
   },
   computed: {
     listeners() {
@@ -70,7 +68,6 @@ export default {
         change: (event) => {
           console.log(this)
           console.log(event.target.value);
-          this.abc = true;
           this.$emit('selectChange', event.target.value);
           //this.$emit('change', event);
         },

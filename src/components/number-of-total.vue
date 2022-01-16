@@ -3,7 +3,7 @@
     <strong class="num">
       <em>10</em>건
     </strong>
-    <strong class="num total">
+    <strong class="num total bar">
       전체<em>10</em>건
     </strong>
   </div>
@@ -23,21 +23,7 @@ export default {
       font-weight: normal;
     }
     .total {
-      position: relative;
-      margin-left: 10px;
-      padding-left: 11px;
       color: #888;
-      &::before {
-        content: "";
-        position: absolute;
-        top: 50%;
-        left: 0;
-        display: block;
-        width: 1px;
-        height: 14px;
-        margin-top: -7px;
-        background: #eee;
-      }
     }
   }
 </style>
