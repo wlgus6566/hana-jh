@@ -1,7 +1,7 @@
 <template>
   <div class="board-detail">
-      <div class="status">
-        <span v-if="question.state !== 'yet'"
+      <div class="status" v-if="boardInfo.state">
+        <span v-if="boardInfo.state !== 'yet'"
               class="flag-sub-sm">
               답변 완료
         </span>
@@ -11,18 +11,23 @@
         </span>
       </div>
       <div class="detail-title">
-        <h3 class="title-h3">{{question.title}}</h3>
+        <h3 class="title-h3">{{boardInfo.title}}</h3>
         <div class="detail-info">
-          <span class="sort">{{question.sort}}</span>
-          <strong class="writer bar">{{question.writer}}</strong>
-          <span class="date bar">{{question.date}}</span>
+          <span class="sort" v-if="boardInfo.sort">{{boardInfo.sort}}</span>
+          <strong class="writer bar" v-if="boardInfo.sort">{{boardInfo.writer}}</strong>
+          <span :class ="{
+            date: true,
+            bar: boardInfo.sort
+          }" >
+            {{boardInfo.date}}
+          </span>
         </div>
       </div>
       <div class="detail-contents">
-        <p class="contents" v-html="question.contents">
+        <p class="contents" v-html="boardInfo.contents">
         </p>
         <download-item
-          :fileList = "question.files"
+          :fileList = "boardInfo.files"
         />
       </div>
   </div>
@@ -34,8 +39,8 @@ export default {
   name: "board-detail",
   components: {DownloadItem},
   props: {
-    question: {
-      type: {},
+    boardInfo: {
+      type: Object,
       required: true
     },
   },

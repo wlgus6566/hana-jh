@@ -44,8 +44,8 @@ export default {
     },
     placeholder: String,
     error: Boolean,
-    maxlength: [String,Number],
-    minlength: [String,Number],
+    maxlength: String,
+    minlength: String,
     disabled: Boolean
   },
   inheritAttrs: false,
