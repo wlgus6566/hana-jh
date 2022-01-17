@@ -21,7 +21,9 @@ body {
     padding: 0 40px 40px;
   }
 }
-
+.bg-gray {
+  background: $gray-20;
+}
 [class^='btn'] {
   display: inline-block;
   padding: 0 15px;
@@ -32,17 +34,39 @@ body {
   overflow: hidden;
   vertical-align: middle;
   letter-spacing: -0.5px;
+  &[class*='sub'] {
+    background-color: $mint-20;
+    color: $mint-60;
+    border-color: $mint-20;
+  }
+  &[class*='primary'] {
+    color: #fff;
+    background-color: $mint-50;
+    &:active {
+      background-color: $mint-30;
+    }
+    &:disabled,
+    &.disabled {
+      background-color: $gray-40;
+    }
+  }
 }
 
-[class^='btn'][class*='primary'] {
-  color: #fff;
-  background-color: $mint-50;
-  &:active {
-    background-color: $mint-30;
+[class^='btn'][class*='line'] {
+  border-width: 1px;
+  border-style: solid;
+  background-color: #fff;
+  &[class*='primary'] {
+    border-color: $mint-60;
+    color: $mint-60;
   }
-  &:disabled,
-  &.disabled {
-    background-color: $gray-40;
+  &[class*='gray'] {
+    border-color: $gray-40;
+    color: #000;
+    background:#fff;
+  }
+  &:active {
+    background-color: $gray-20;
   }
 }
 
@@ -69,6 +93,20 @@ body {
   border-radius: 15px;
   font-size: 12px;
 }
+.area-btn {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  margin-top: 60px;
+  padding-bottom: 60px;
+  box-sizing: border-box;
+  [class^='btn'] {
+    & + [class*='btn'] {
+      margin-left: 10px;
+    }
+  }
+}
+
 [class^='flag'] {
   display: inline-flex;
   justify-content: center;

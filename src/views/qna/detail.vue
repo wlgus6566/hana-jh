@@ -3,30 +3,63 @@
     <div class="container">
       <div class="inner">
         <title-wrap/>
-        <board-detail
-            :question="question"
-        />
+        <board-detail :boardInfo="question"/>
       </div>
     </div>
     <hr class="wide-gray">
-    <div class="container">
-      <div class="inner">
-        <form action="#" @submit.prevent="submitAnswer">
-          <h3 class="title-h3">핑글코치의 답변을 작성해주세요.</h3>
-          <input-textarea
-              v-model="form.write.value"
-              :maxlength="form.write.maxlength"
-              :placeholder="form.write.placeholder"
-              :disabled="form.write.disabled"
-          />
-          <ul class="bullet-list">
-            <li class="bullet-txt"> 최소 30자 ~ 최대 500자까지 입력해주세요.</li>
-            <li class="bullet-txt"> 등록된 답변이 고객의 모바일 화면에서 노출되는 점을 고려하여
-              답변을 작성해주세요.</li>
-          </ul>
-        </form>
+    <template>
+      <div class="container">
+        <div class="inner">
+          <template v-if="answer">
+            <form action="#" @submit.prevent="submitAnswer">
+              <h3 class="title-h3">핑글코치의 답변을 작성해주세요.</h3>
+              <input-textarea
+                  v-model="form.write.value"
+                  :maxlength="form.write.maxlength"
+                  :placeholder="form.write.placeholder"
+                  :disabled="form.write.disabled"
+              />
+              <ul class="bullet-list">
+                <li class="bullet-txt"> 최소 30자 ~ 최대 500자까지 입력해주세요.</li>
+                <li class="bullet-txt"> 등록된 답변이 고객의 모바일 화면에서 노출되는 점을 고려하여
+                  답변을 작성해주세요.</li>
+              </ul>
+              <file-form :files="form.write.files" />
+              <div class="area-btn">
+                <button type="button" class="btn-line-gray-lg">
+                  취소
+                </button>
+                <button type="submit" class="btn-primary-lg">저장</button>
+              </div>
+            </form>
+          </template>
+          <template v-else>
+            <no-data
+                noDataText='아직 등록된 답변이 없습니다. 답변을 등록해주세요.'
+            />
+            <div class="area-btn">
+              <router-link to="/qna" class="btn-sub-lg">
+                목록
+              </router-link>
+              <button type="button" class="btn-primary-lg">
+                답변 등록
+              </button>
+            </div>
+          </template>
+        </div>
       </div>
-    </div>
+    </template>
+    <template>
+      <div class="answer-wrap bg-gray">
+        <board-answer :boardInfo="answer"/>
+        <div class="area-btn">
+          <router-link to="/qna" class="btn-sub-lg">목록</router-link>
+          <button type="button" class="btn-line-gray-lg">삭제</button>
+          <button type="button" class="btn-primary-lg">수정</button>
+        </div>
+      </div>
+    </template>
+
   </div>
 </template>
 
@@ -34,9 +67,12 @@
 import TitleWrap from "@/components/title-wrap";
 import BoardDetail from "@/components/board-detail";
 import InputTextarea from "@/components/input-textarea";
+import FileForm from "../../components/file-form";
+import BoardAnswer from "../../components/board-answer";
+import NoData from "../../components/no-data";
 export default {
   name: "qna-detail",
-  components: {InputTextarea, BoardDetail, TitleWrap},
+  components: {NoData, BoardAnswer, BoardDetail, FileForm, InputTextarea, TitleWrap},
   data() {
     return {
       writeForm: false, //핑글코치인지 아닌지 체크
@@ -72,8 +108,8 @@ export default {
           },
         ],
       },
-      answer: null,
-      /*    answer: {
+      //answer: null,
+          answer: {
         title: '핑글코치의 답변입니다.',
         date: '2021.12.04',
         contents:
@@ -100,7 +136,7 @@ export default {
             link: '/img/t-image-img-review-character-100@2x.6a85402e.png',
           },
         ],
-      },*/
+      },
       form: {
         write: {
           value: '',
@@ -112,6 +148,11 @@ export default {
         },
       },
     };
+  },
+  methods: {
+    submitAnswer() {
+      console.log('df')
+    }
   },
 }
 </script>
