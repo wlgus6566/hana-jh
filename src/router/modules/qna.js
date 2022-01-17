@@ -4,8 +4,12 @@ export default [
     {
         path: '/qna',
         component: pages('qna'),
-        meta: { title: '고객 Q&A 관리' },
         children: [
+            {
+                path: '',
+                component: pages('qna/list'),
+                meta: { title: '고객 Q&A 관리' },
+            },
             {
                 path: ':id',
                 component: pages('qna/detail'),
