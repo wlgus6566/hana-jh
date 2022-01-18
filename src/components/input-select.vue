@@ -15,7 +15,7 @@
       v-on="listeners"
       v-bind="$attrs"
     >
-      <option :value="''" disabled="true" v-if="placeholder">
+      <option value="" disabled v-if="placeholder">
         {{ placeholder }}
       </option>
       <option

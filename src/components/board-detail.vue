@@ -24,8 +24,7 @@
         </div>
       </div>
       <div class="detail-contents">
-        <p class="contents" v-html="boardInfo.contents">
-        </p>
+        <p class="contents" v-html="boardInfo.contents"/>
         <download-item
           :fileList = "boardInfo.files"
         />

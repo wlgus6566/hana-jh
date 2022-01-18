@@ -3,9 +3,7 @@
   :class="{
       'file-form':true,
   }">
-    <file-attach
-        @input="getFile"
-    />
+    <file-attach @input="getFile"/>
     <ul class="attached-list">
       <li v-for="file in files" :key="file.id">
         <span class="name">{{ files.name }}</span>

@@ -62,12 +62,14 @@ export default {
           this.$emit('focusout', event)
         },
         input: (event) => {
+          console.log('input')
           if(this.maxlength) {
             this.$emit('input',event)
             this.length = event.target.value.length;
           }
         },
         change: (event) => {
+          console.log('change')
           this.inputChange(event);
           this.$emit('input',event);
         }
@@ -77,6 +79,7 @@ export default {
   },
   methods: {
     inputChange(event) {
+      console.log(event.target.value)
       this.$emit('inputChange', event.target.value);
       if(this.maxlength) {
         event.target.value.slice(0,this.maxlength);

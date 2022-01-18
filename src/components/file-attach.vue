@@ -5,40 +5,44 @@
       <div class="input">
         <span class="name">{{ fileName }}</span>
         <input
-            ref="inputFileBtn"
-            type="file"
-            accept="image/*"
-            @input="updateInput"
+          ref="inputFileBtn"
+          type="file"
+          accept="image/*"
+          @input="updateInput"
         />
       </div>
-      <button class="btn-line-primary-md" @click="uploadFile()">파일첨부</button>
+      <button class="btn-line-primary-md" @click="uploadFile()">
+        파일첨부
+      </button>
     </div>
-    <ul class="bullet-list">
-      <li class="bullet-txt">이미지 및 파일 첨부 10MB 이하로 최대 3까지 등록 가능합니다. (첨부 가능한 형식 : JPG, PNG, PPT, HWP, PDF, EXCEL)</li>
-    </ul>
-
+    <bullet-list :lists="bulletList" />
   </div>
 </template>
 
 <script>
+import BulletList from "@/components/bullet-list";
 export default {
   name: "file-attach",
+  components: { BulletList },
   data() {
     return {
-      fileName: '',
-    }
+      fileName: "",
+      bulletList: [
+        "이미지 및 파일 첨부 10MB 이하로 최대 3까지 등록 가능합니다. (첨부 가능한 형식 : JPG, PNG, PPT, HWP, PDF, EXCEL)",
+      ],
+    };
   },
   methods: {
     updateInput(e) {
       console.log(e);
       this.fileName = e.target.files[0].name;
-      this.$emit('input', e.target.files[0]);
+      this.$emit("input", e.target.files[0]);
     },
     uploadFile() {
       this.$refs.inputFileBtn.click();
-    }
+    },
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>
@@ -48,11 +52,11 @@ export default {
     color: $gray-70;
     font-weight: bold;
   }
-  .file-input{
+  .file-input {
     display: flex;
     align-items: center;
     margin-top: 10px;
-    .input{
+    .input {
       position: relative;
       width: 230px;
       height: 44px;
