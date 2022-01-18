@@ -24,7 +24,9 @@
                 <li class="bullet-txt"> 등록된 답변이 고객의 모바일 화면에서 노출되는 점을 고려하여
                   답변을 작성해주세요.</li>
               </ul>
-              <file-form :files="form.write.files" />
+              <file-form :files="form.write.files"
+                         v-model="form.write.files"
+              />
               <div class="area-btn">
                 <button type="button" class="btn-line-gray-lg">
                   취소

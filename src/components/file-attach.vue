@@ -10,6 +10,7 @@
             accept="image/*"
             @input="updateInput"
         />
+        <button v-if="fileName" class="delete-button" @click="deleteFile()">파일삭제</button>
       </div>
       <button class="btn-line-primary-md" @click="uploadFile()">파일첨부</button>
     </div>
@@ -25,17 +26,23 @@ export default {
   name: "file-attach",
   data() {
     return {
+      file: [],
       fileName: '',
     }
   },
   methods: {
     updateInput(e) {
       console.log(e);
+      this.file =  e.target.files[0];
       this.fileName = e.target.files[0].name;
       this.$emit('input', e.target.files[0]);
     },
     uploadFile() {
       this.$refs.inputFileBtn.click();
+    },
+    deleteFile() {
+      this.$emit('input', this.file);
+      this.fileName = '';
     }
   },
 }
@@ -80,5 +87,9 @@ export default {
       margin-left: 10px;
     }
   }
+}
+.delete-button {
+  position: relative;
+  z-index: 3;
 }
 </style>

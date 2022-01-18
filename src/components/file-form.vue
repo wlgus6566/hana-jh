@@ -4,12 +4,12 @@
       'file-form':true,
   }">
     <file-attach
-        @input="getFile"
+        @input="updateFile"
     />
     <ul class="attached-list">
       <li v-for="file in files" :key="file.id">
-        <span class="name">{{ files.name }}</span>
-        <button class="delete-button">파일삭제</button>
+        <span class="name">{{ file.name }}</span>
+        <button class="delete-button" @click="deleteFile(file.id)">파일삭제</button>
       </li>
     </ul>
   </div>
@@ -29,14 +29,30 @@ export default {
     }
   },
   methods: {
-    getFile(file) {
-      this.fileList.push(file);
-      this.$emit('changeFile', this.fileList);
+    updateFile(file) {
+      const idx = this.fileList.findIndex(el=>el.name===file.name);
+      if (idx !== -1) {
+        this.fileList.splice(idx, 1);
+      } else {
+        const fileInfo = {
+          id: file.lastModified,
+          name: file.name,
+          link: file.webkitRelativePath
+        };
+        this.fileList.push(fileInfo);
+      }
+      this.$emit('inputFile', this.fileList);
+    },
+    deleteFile(idx) {
+      const id = this.fileList.findIndex(list => list.id ===idx);
+      this.fileList.splice(id,1);
+      this.$emit('inputFile', this.fileList);
+
     }
   },
   model: {
     prop:'files',
-    event: 'changeFile'
+    event: 'inputFile'
   }
 }
 </script>
@@ -48,15 +64,6 @@ export default {
     display: flex;
     align-items: flex-start;
     .name {
-    }
-    .delete-button {
-      display: inline-block;
-      width: 24px;
-      height: 24px;
-      margin-left: 5px;
-      background: url(../../src/assets/images/ic-delete-24.svg) no-repeat center;
-      text-indent: -9999px;
-      font-size: 0;
     }
     & + li {
       margin-top: 14px;

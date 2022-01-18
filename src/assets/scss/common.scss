@@ -337,3 +337,12 @@ body {
     }
   }
 }
+.delete-button {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  margin-left: 5px;
+  background: url(../images/ic-delete-24.svg) no-repeat center;
+  text-indent: -9999px;
+  font-size: 0;
+}
