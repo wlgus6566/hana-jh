@@ -1,17 +1,15 @@
 <template>
-  <div class="search-detail"
-       @click="toggleDetailYn(detailYn)"
-  >
-      <span>
-        상세검색
-        <i
-            :class="{
-              'ic-search-detail': !detailYn,
-              'ic-ex': detailYn,
-              }"
-        >
-        </i>
-      </span>
+  <div class="search-detail">
+    <span @click="toggleDetailYn(detailYn)">
+      상세검색
+      <i
+        :class="{
+          'ic-search-detail': !detailYn,
+          'ic-ex': detailYn,
+        }"
+      >
+      </i>
+    </span>
   </div>
 </template>
 
@@ -19,14 +17,14 @@
 export default {
   name: "search-detail-txt-btn",
   props: {
-    detailYn: Boolean
+    detailYn: Boolean,
   },
   methods: {
     toggleDetailYn(detailYn) {
-      this.$emit('update:toggle', !detailYn)
-    }
+      this.$emit("update:toggle", !detailYn);
+    },
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>
@@ -36,6 +34,7 @@ export default {
   span {
     display: flex;
     align-items: center;
+    cursor: pointer;
   }
 }
 </style>

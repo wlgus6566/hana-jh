@@ -4,35 +4,8 @@
       <div class="inner">
         <title-wrap />
         <div class="form-search-wrap">
-          <search-detail-txt-btn :detailYn="detailYn" :toggle.sync="detailYn" />
           <div class="form-search">
             <div class="search-inner">
-              <div class="row" v-if="detailYn">
-                <div class="row-half">
-                  <strong class="label">구분</strong>
-                  <input-select
-                    v-model="assortSelect.value"
-                    :selectOptions="assortSelect.options"
-                    :disabled="assortSelect.disabled"
-                    :maxWidth="false"
-                  />
-                </div>
-                <div class="row-half">
-                  <strong class="label">문의일</strong>
-                  <input-select
-                    v-model="dateSelect.value"
-                    :selectOptions="dateSelect.options"
-                    :disabled="dateSelect.disabled"
-                    :maxWidth="true"
-                  />
-                  <input-text
-                    v-model="inputDate.value"
-                    :disabled="
-                      inputDate.disabled && !(dateSelect.value === '직접입력')
-                    "
-                  />
-                </div>
-              </div>
               <div class="row">
                 <strong class="label">내용</strong>
                 <input-text
@@ -56,7 +29,7 @@
               />
             </div>
           </div>
-          <board-table v-if="boardContent.length > 0">
+          <board-table v-if="paginationInfo.length > 0">
             <template #colgroup>
               <col style="width: 72px" />
               <col style="width: 107px" />
@@ -73,7 +46,7 @@
               </tr>
             </template>
             <template #tbody>
-              <tr v-for="(item, idx) in boardContent" :key="idx">
+              <tr v-for="(item, idx) in paginationInfo" :key="idx">
                 <td>
                   {{ item.num }}
                 </td>
@@ -86,7 +59,6 @@
                     <router-link :to="`/qna/${item.num}`">
                       {{ item.content }}
                     </router-link>
-                    <i class="icon-new" v-if="NewFlag(item.date, 10)"></i>
                   </div>
                 </td>
                 <td>
@@ -108,8 +80,8 @@
           <pagination
             v-model="paginationInfo.page"
             :per-page="paginationInfo.size"
-            :records="paginationInfo.total"
             :options="paginationInfo.options"
+            :records="paginationInfo.total"
           />
         </div>
       </div>
@@ -118,6 +90,7 @@
 </template>
 
 <script>
+import { getInsuranceList } from "@/api";
 import Pagination from "vue-pagination-2";
 import TitleWrap from "@/components/title-wrap";
 import InputSelect from "@/components/input-select";
@@ -153,7 +126,6 @@ export default {
           chunk: 10, // pagination 의 max 페이지 수
         },
       },
-      detailYn: false,
       assortSelect: {
         options: [
           {
@@ -335,18 +307,33 @@ export default {
       ],
     };
   },
+  created() {
+    this.getInsuranceList();
+  },
+  watch: {
+    "paginationInfo.page"() {
+      this.getInsuranceList();
+    },
+    /*    'paginationInfo.sort'() {
+      this.paginationInfo.page = 1;
+      this.getInsuranceList()
+    },*/
+  },
   methods: {
-    NewFlag(regDay, num) {
-      //regDay 날짜가 오늘 날짜에서 num 만큼 작으면 true
-      const setDate = new Date(regDay);
-      const now = new Date();
-      const distance = now.getTime() - setDate.getTime();
-      const day = Math.floor(distance / (1000 * 60 * 60 * 24));
-      let state = false;
-      if (day <= num) {
-        state = true;
+    async getInsuranceList() {
+      try {
+        const response = await getInsuranceList({
+          page: this.paginationInfo.page,
+          size: this.paginationInfo.size,
+        });
+        console.log("getInsuranceList", response);
+        this.paginationInfo.list = response.list;
+        this.paginationInfo.total = response.totalElements;
+      } catch (e) {
+        console.log("getInsuranceList", e);
+      } finally {
+        console.log("getInsuranceList finally");
       }
-      return state;
     },
   },
 };

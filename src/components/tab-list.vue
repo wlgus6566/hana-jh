@@ -1,10 +1,10 @@
 <template>
   <ul class="tab-wrap">
     <li
-        v-for="(item, idx) in tabList.list"
+        v-for="(item, idx) in tabList"
         :key="idx"
         :class="{
-          active: tabList.active === item.id
+          active: value === item.id
         }"
     >
       <button @click="tabClick(item.id)">
@@ -19,14 +19,19 @@ export default {
   name: "tab-list",
   props: {
     tabList: {
-      type: [],
+      type: Array,
     },
+    value : [String, Number]
   },
   methods: {
     tabClick(id) {
       console.log(id)
-      this.$emit('update:active', id);
+      this.$emit('active', id);
     }
+  },
+  model : {
+    prop : 'value',
+    event : 'active'
   },
 }
 </script>
