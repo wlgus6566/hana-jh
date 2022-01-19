@@ -47,7 +47,7 @@ export default {
       Object.entries(t).forEach(([key, value]) => {
         t[key] = value.trim();
         if (!t[key]) {
-          delete t[key]; //공백일 경우 키를 제거
+          delete t[key]; //공백일 경우 키의 값을 를 제거 keyword=""
         }
       });
       return t;
@@ -58,26 +58,27 @@ export default {
       const formProps = Object.fromEntries(formData);
       const route = this.queryMerge(this.$route.query, formProps);
       this.$router.push({ query: { ...route } }).catch(() => {});
-      this.$emit("change");
+      this.$emit("submit");
     },
   },
   mounted() {
     const formData = new FormData(this.$refs.form);
+    console.log(formData);
+    // **  fromEntries : [['keyword', 'red'],['select', '2']] 를 {keyword: "red", select: "2"} 로
+    const formProps = Object.fromEntries(formData);
+    console.log("formProps: ", formProps); // formProps: {keyword: "red", select "2"}
 
-    //fromEntries : [['color', 'red'],['borderWidth', '1px']] 를 {color: "red", borderWidth: "1px"} 로
-    const formProps = Object.fromEntries(formData); // formProps: { keyword: '' }
-    console.log("formProps: ", formProps); //{keyword: ''}
-
-    //Object.keys : 키값만 뽑아내서 배열로 만듦
-    //this.$route.query ex) { keyword: '어쩌고검색', page: "1" }
-    let difference = Object.keys(this.$route.query).filter((x) =>
-      Object.keys(formProps).includes(x)
+    // ** Object.keys : 키값만 뽑아내서 배열로 만듦 {"keyword","page"}
+    // this.$route.query ex) { keyword: '어쩌고검색', select: "2" }
+    let difference = Object.keys(this.$route.query).filter(
+      (
+        key // router에 있는 query들의 key값과 form의 검색조건들의 교집합 만들기
+      ) => Object.keys(formProps).includes(key)
     );
-
     console.log("difference", difference); //['keyword']
-
+    console.log("네임이 키워드", this.$refs.form["keyword"]);
     difference.forEach((x) => {
-      this.$refs.form[x].value = this.$route.query[x]; //라우터에 있는 value로 값을 매칭
+      this.$refs.form[x].value = this.$route.query[x]; //라우터에 있는 value로 input값을 입력
       if (this.$refs.form[x].selectedIndex === -1) {
         //select하지 않았을 경우 옵션 첫번째로 검색
         this.$refs.form[x].value = this.$refs.form[x].options[0]._value;
@@ -86,7 +87,7 @@ export default {
       const change = new Event("change");
       this.$refs.form[x].dispatchEvent(input);
       this.$refs.form[x].dispatchEvent(change);
-      console.log("되고있니...?");
+      //submit 안해도 되는지?
     });
   },
 };

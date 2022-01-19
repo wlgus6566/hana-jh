@@ -18,8 +18,8 @@
         <div class="table-wrap">
           <div class="table-top">
             <tab-list
-              :tabList="tabList.list"
               name="sort"
+              :tabList="tabList.list"
               v-model="tabList.active"
               @change="getInsuranceList"
             />
@@ -93,12 +93,12 @@
             </template>
           </board-table>
           <no-data v-else noDataText="배정된 상담 문의가 아직 없습니다." />
-          <pagination
-            v-model="paginationInfo.page"
-            :per-page="paginationInfo.size"
-            :options="paginationInfo.options"
-            :records="paginationInfo.total"
-            @paginate="pageClick(paginationInfo.page)"
+          <paginationItem
+            :total="paginationInfo.total"
+            :active="paginationInfo.activePage"
+            v-model="paginationInfo.activePage"
+            :size="paginationInfo.size"
+            @change="getInsuranceList"
           />
         </div>
       </div>
@@ -108,7 +108,6 @@
 
 <script>
 import { getInsuranceList } from "@/api";
-import Pagination from "vue-pagination-2";
 import TitleWrap from "@/components/title-wrap";
 import InputSelect from "@/components/input-select";
 import InputText from "@/components/input-text";
@@ -117,12 +116,13 @@ import NumberOfTotal from "@/components/number-of-total";
 import BoardTable from "@/components/board-table";
 import NoData from "@/components/no-data";
 import SearchForm from "@/components/search-form";
+import PaginationItem from "@/components/pagination-item";
 
 export default {
   name: "qna-list",
   components: {
+    PaginationItem,
     SearchForm,
-    Pagination,
     NoData,
     BoardTable,
     NumberOfTotal,
@@ -135,14 +135,9 @@ export default {
     return {
       detailYn: false,
       paginationInfo: {
-        page: 1,
         size: 3,
-        list: [], // 백엔드에서 받은 글 목록
-        total: 0, // 백엔드에서 받은 전체 글의 갯수
-        options: {
-          texts: { count: "" },
-          chunk: 10, // pagination 의 max 페이지 수
-        },
+        total: 1,
+        activePage: 1,
       },
       dateSelect: {
         options: [
@@ -241,15 +236,10 @@ export default {
     this.getInsuranceList();
   },
   methods: {
-    pageClick(num) {
-      this.$router.push({ query: { ...this.$route.query, page: num } });
-      this.paginationInfo.page = num;
-      this.getInsuranceList();
-    },
     async getInsuranceList() {
       try {
         const response = await getInsuranceList({
-          page: this.paginationInfo.page,
+          page: this.paginationInfo.activePage,
           size: this.paginationInfo.size,
           inscoNm: this.searchValue,
           lpicDvCd: this.tabList.active,

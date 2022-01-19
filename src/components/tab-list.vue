@@ -26,12 +26,13 @@ export default {
     active: [String, Number],
   },
   created() {
-    if (this.tabList.some((el) => el.id === this.$route.query[this.name])) {
-      this.$emit(
-        "activeChange",
-        this.$route.query[this.name] || this.list[0].id
-      );
-      console.log("탭 액티브클래스");
+    if (
+      this.tabList.some(
+        (el) => el.id === parseInt(this.$route.query[this.name])
+      )
+    ) {
+      let num = parseInt(this.$route.query[this.name]);
+      this.$emit("activeChange", num || this.list[0].id);
     }
   },
   watch: {
@@ -50,9 +51,6 @@ export default {
       this.$router.push({
         query: { ...this.$route.query, [this.name]: id },
       });
-      //this.$emit('getInsuranceList',
-      //     {...this.$route.query, [this.name]: id, page: 1}
-      //)
     },
   },
   model: {

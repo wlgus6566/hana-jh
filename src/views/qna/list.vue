@@ -105,11 +105,10 @@
             </template>
           </board-table>
           <no-data v-else noDataText="배정된 상담 문의가 아직 없습니다." />
-          <pagination
-            v-model="paginationInfo.page"
-            :per-page="paginationInfo.size"
-            :records="paginationInfo.total"
-            :options="paginationInfo.options"
+          <pagination-item
+              :total="paginationInfo.total"
+              v-model="paginationInfo.page"
+              :size = "paginationInfo.size"
           />
         </div>
       </div>
@@ -118,7 +117,6 @@
 </template>
 
 <script>
-import Pagination from "vue-pagination-2";
 import TitleWrap from "@/components/title-wrap";
 import InputSelect from "@/components/input-select";
 import SearchDetailTxtBtn from "@/components/search-detail-txt-btn";
@@ -127,11 +125,12 @@ import TabList from "@/components/tab-list";
 import NumberOfTotal from "@/components/number-of-total";
 import BoardTable from "@/components/board-table";
 import NoData from "@/components/no-data";
+import PaginationItem from "@/components/pagination-item";
 
 export default {
   name: "qna-list",
   components: {
-    Pagination,
+    PaginationItem,
     NoData,
     BoardTable,
     NumberOfTotal,
@@ -144,14 +143,9 @@ export default {
   data() {
     return {
       paginationInfo: {
-        page: 1,
-        size: 5,
-        list: [], // 백엔드에서 받은 글 목록
-        total: 30, // 백엔드에서 받은 전체 글의 갯수
-        options: {
-          texts: { count: "" },
-          chunk: 10, // pagination 의 max 페이지 수
-        },
+        size: 3,
+        total: 1,
+        activePage: 1,
       },
       detailYn: false,
       assortSelect: {

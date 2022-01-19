@@ -4,6 +4,7 @@
 body {
   font-size: 14px;
   line-height: 20px;
+  -webkit-font-smoothing: antialiased;
 }
 #app {
   min-height: 100vh;
@@ -258,72 +259,7 @@ body {
   }
 }
 
-/* pagination */
-.pagination {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 30px;
-  li {
-    a {
-      display: inline-block;
-      padding: 5px;
-      font-size: 14px;
-      color: $gray-50;
-      font-weight: normal;
-      cursor: pointer;
-    }
-    &.active a {
-      color: $mint-60;
-    }
-    + li {
-      margin-left: 15px;
-    }
-    &.VuePagination__pagination-item-prev-page a,
-    &.VuePagination__pagination-item-next-page a {
-      width: 20px;
-      height: 20px;
-      text-indent: -9999em;
-      font-size: 0;
-      background: url("../images/ic-back-20.svg") no-repeat center;
-      box-sizing: border-box;
-    }
-    &.VuePagination__pagination-item-prev-page {
-      &.disabled a {
-        background: url("../images/ic-back-20-gr.svg") no-repeat center;
-      }
-      a {
-        background: url("../images/ic-back-20.svg") no-repeat center;
-      }
-      &.VuePagination__pagination-item-prev-chunk {
-        &.disabled a {
-          background: url("../images/ic-backend-20-gr.svg") no-repeat center;
-        }
-        a {
-          background: url("../images/ic-backend-20.svg") no-repeat center;
-        }
-      }
-    }
-    &.VuePagination__pagination-item-next-page {
-      &.disabled a {
-        background: url("../images/ic-next-20-gr.svg") no-repeat center;
-      }
-      a {
-        background: url("../images/ic-next-20.svg") no-repeat center;
-      }
-      &.VuePagination__pagination-item-next-chunk {
-        &.disabled a {
-          background: url("../images/ic-nextend-20-gr.svg") no-repeat center;
-        }
-        a {
-          background: url("../images/ic-nextend-20.svg") no-repeat center;
-        }
-      }
-    }
-  }
-}
 
-/* bullet */
 .bullet-list {
   margin-top: 10px;
   .bullet-txt {

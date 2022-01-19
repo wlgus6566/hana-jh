@@ -11,4 +11,13 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style lang="scss" scoped>
+header {
+  padding: 30px;
+  a {
+    + a {
+      margin-left: 10px;
+    }
+  }
+}
+</style>
