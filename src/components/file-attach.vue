@@ -10,7 +10,9 @@
           accept="image/*"
           @input="updateInput"
         />
-        <button v-if="fileName" class="delete-button" @click="deleteFile()">파일삭제</button>
+        <button v-if="fileName" class="delete-button" @click="deleteFile()">
+          파일삭제
+        </button>
       </div>
       <button class="btn-line-primary-md" @click="uploadFile()">
         파일첨부
@@ -28,17 +30,16 @@ export default {
   data() {
     return {
       file: [],
-      fileName: '',
       fileName: "",
       bulletList: [
         "이미지 및 파일 첨부 10MB 이하로 최대 3까지 등록 가능합니다. (첨부 가능한 형식 : JPG, PNG, PPT, HWP, PDF, EXCEL)",
       ],
-    }
+    };
   },
   methods: {
     updateInput(e) {
       console.log(e);
-      this.file =  e.target.files[0];
+      this.file = e.target.files[0];
       this.fileName = e.target.files[0].name;
       this.$emit("input", e.target.files[0]);
     },
@@ -46,9 +47,9 @@ export default {
       this.$refs.inputFileBtn.click();
     },
     deleteFile() {
-      this.$emit('input', this.file);
-      this.fileName = '';
-    }
+      this.$emit("input", this.file);
+      this.fileName = "";
+    },
   },
 };
 </script>

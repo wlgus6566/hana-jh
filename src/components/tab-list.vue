@@ -1,11 +1,11 @@
 <template>
   <ul class="tab-wrap">
     <li
-        v-for="(item, idx) in tabList"
-        :key="idx"
-        :class="{
-          active: value === item.id
-        }"
+      v-for="(item, key) in tabList"
+      :key="key"
+      :class="{
+        active: active === item.id,
+      }"
     >
       <button @click="tabClick(item.id)">
         <span v-html="item.title" />
@@ -18,22 +18,48 @@
 export default {
   name: "tab-list",
   props: {
-    tabList: {
-      type: Array,
+    tabList: Array,
+    name: {
+      type: String,
+      default: "tab",
     },
-    value : [String, Number]
+    active: [String, Number],
+  },
+  created() {
+    if (this.tabList.some((el) => el.id === this.$route.query[this.name])) {
+      this.$emit(
+        "activeChange",
+        this.$route.query[this.name] || this.list[0].id
+      );
+      console.log("탭 액티브클래스");
+    }
+  },
+  watch: {
+    "$route.query"(to, from) {
+      if (from[this.name] !== to[this.name]) {
+        this.$emit("activeChange", to[this.name] || this.list[0].id);
+        this.$emit("change");
+      }
+    },
   },
   methods: {
     tabClick(id) {
-      console.log(id)
-      this.$emit('active', id);
-    }
+      if (id === this.$route.query[this.name]) return;
+      this.$emit("activeChange", id);
+      console.log(id);
+      this.$router.push({
+        query: { ...this.$route.query, [this.name]: id },
+      });
+      //this.$emit('getInsuranceList',
+      //     {...this.$route.query, [this.name]: id, page: 1}
+      //)
+    },
   },
-  model : {
-    prop : 'value',
-    event : 'active'
+  model: {
+    prop: "active",
+    event: "activeChange",
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>

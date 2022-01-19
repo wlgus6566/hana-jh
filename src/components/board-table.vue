@@ -16,8 +16,8 @@
 
 <script>
 export default {
-  name: "board-table"
-}
+  name: "board-table",
+};
 </script>
 
 <style lang="scss" scoped>
@@ -39,6 +39,13 @@ export default {
       text-align: center;
       border-top: 1px solid $gray-30;
       vertical-align: middle;
+      .logo-img {
+        height: 20px;
+        img {
+          width: auto;
+          height: 100%;
+        }
+      }
       &.content {
         text-align: left;
         .content-inner {

@@ -1,22 +1,24 @@
 <template>
   <div
-      :class="{
-         'input-wrap': true,
-          disabled: disabled,
-          focused: focused,
-          placeholder: !value,
-          error: error,
-          'input-search': type ==='search'
-      }">
+    :class="{
+      'input-wrap': true,
+      disabled: disabled,
+      focused: focused,
+      placeholder: !value,
+      error: error,
+      'input-search': type === 'search',
+    }"
+  >
     <div class="input">
       <input
-          :type="type"
-          :value="value"
-          :maxlength="maxlength"
-          v-bind="$attrs"
-          v-on="listeners"
-          :placeholder = placeholder
-          :disabled="disabled"
+        :type="type"
+        :value="value"
+        :maxlength="maxlength"
+        :name="name"
+        v-bind="$attrs"
+        v-on="listeners"
+        :placeholder="placeholder"
+        :disabled="disabled"
       />
     </div>
     <p class="error-msg" v-if="error">{{ error }}</p>
@@ -35,41 +37,42 @@ export default {
       type: String,
       required: true,
     },
+    name: String,
     type: {
       type: String,
-      default: 'text'
+      default: "text",
     },
     disabled: Boolean,
     error: String,
     maxlength: Number,
-    placeholder: String
+    placeholder: String,
   },
   inheritAttrs: false,
   computed: {
     listeners() {
       return {
-        ...this.$listeners,// 모든 부모 이벤트리스너를 전달
+        ...this.$listeners, // 모든 부모 이벤트리스너를 전달
         // 특정 이벤트의 행동을 오버라이딩
         focusin: (event) => {
           this.focused = true;
-          this.$emit('focusin', event);
+          this.$emit("focusin", event);
         },
         focusout: (event) => {
           this.focused = false;
-          this.$emit('focusout', event);
+          this.$emit("focusout", event);
         },
         input: (event) => {
-          this.$emit('inputEvent', event.target.value);
+          this.$emit("inputEvent", event.target.value);
           //this.$emit('input', event);
         },
-      }
-    }
+      };
+    },
   },
   model: {
-    event: 'inputEvent',
-    prop: 'value'
+    event: "inputEvent",
+    prop: "value",
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>
