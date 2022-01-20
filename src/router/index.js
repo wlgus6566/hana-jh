@@ -4,6 +4,7 @@ import { pages } from "@/utils/path";
 
 import qna from "./modules/qna";
 import insurance from "@/router/modules/insurance";
+import signup from "@/router/modules/signup";
 
 Vue.use(VueRouter);
 
@@ -19,6 +20,7 @@ const router = new VueRouter({
     },
     ...qna,
     ...insurance,
+    ...signup
   ],
 });
 

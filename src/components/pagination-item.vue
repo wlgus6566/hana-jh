@@ -97,18 +97,18 @@ export default {
   },
   watch: {
     "$route.query"(to, from) {
-      if (from[this.name] !== to[this.name]) {
+      if (from[this.name] !== to[this.name]) { //페이지가 변한 경우
         console.log(to[this.name]);
         this.$emit("activeChange", to[this.name]);
         this.$emit("change");
-        console.log("너타니");
-      } else {
+        console.log("페이지가 변한 경우");
+      } else { //페이지가 변하지 않은 경우
         this.$emit("activeChange", "1");
         this.$router
           .replace({ query: { ...this.$route.query, page: "1" } })
           .catch(() => {});
         this.$emit("change");
-        console.log("아님너타니");
+        console.log("페이지가 변하지 않은 경우");
       }
     },
   },

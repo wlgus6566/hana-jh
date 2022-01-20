@@ -3,12 +3,12 @@
     <div class="container">
       <div class="inner">
         <title-wrap />
-        <search-form :detailExist="false" @submit="getInsuranceList">
+        <search-form :detailExist="false" @change="getInsuranceList">
           <template #rows>
             <div class="row">
               <strong class="label">내용</strong>
               <input-text
-                v-model="inputContent.value"
+                v-model="searchValue"
                 :placeholder="inputContent.placeholder"
                 name="keyword"
               />
@@ -25,7 +25,7 @@
             />
             <div class="right">
               <number-of-total
-                :currentNum="boardContent.length"
+                :currentNum="paginationInfo.total"
                 :totalNum="paginationInfo.total"
               />
               <input-select
@@ -250,6 +250,7 @@ export default {
         this.boardContent = await response.data.list;
       } catch (err) {
         console.log(err);
+        this.boardContent = [];
       } finally {
         console.log("getInsuranceList finally");
       }

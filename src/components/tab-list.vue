@@ -38,19 +38,21 @@ export default {
   watch: {
     "$route.query"(to, from) {
       if (from[this.name] !== to[this.name]) {
-        this.$emit("activeChange", to[this.name] || this.list[0].id);
-        this.$emit("change");
+        this.$emit("activeChange", parseInt(to[this.name]) || this.list[0].id);
+        //this.$emit("change");
       }
     },
   },
   methods: {
     tabClick(id) {
       if (id === this.$route.query[this.name]) return;
+      this.$router
+        .push({
+          query: { ...this.$route.query, [this.name]: id },
+        })
+        .catch(() => {});
       this.$emit("activeChange", id);
       console.log(id);
-      this.$router.push({
-        query: { ...this.$route.query, [this.name]: id },
-      });
     },
   },
   model: {

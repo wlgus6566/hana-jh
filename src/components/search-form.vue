@@ -47,7 +47,7 @@ export default {
       Object.entries(t).forEach(([key, value]) => {
         t[key] = value.trim();
         if (!t[key]) {
-          delete t[key]; //공백일 경우 키의 값을 를 제거 keyword=""
+          delete t[key]; //공백일 경우 키의 값을 제거 keyword=""
         }
       });
       return t;
@@ -58,7 +58,7 @@ export default {
       const formProps = Object.fromEntries(formData);
       const route = this.queryMerge(this.$route.query, formProps);
       this.$router.push({ query: { ...route } }).catch(() => {});
-      this.$emit("submit");
+      this.$emit("change");//빈값일 경우 api 1,1로 호출
     },
   },
   mounted() {
@@ -87,7 +87,6 @@ export default {
       const change = new Event("change");
       this.$refs.form[x].dispatchEvent(input);
       this.$refs.form[x].dispatchEvent(change);
-      //submit 안해도 되는지?
     });
   },
 };
