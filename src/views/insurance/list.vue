@@ -22,6 +22,7 @@
               :tabList="tabList.list"
               v-model="tabList.active"
               @change="getInsuranceList"
+              :page.sync="paginationInfo.activePage"
             />
             <div class="right">
               <number-of-total
@@ -119,7 +120,7 @@ import SearchForm from "@/components/search-form";
 import PaginationItem from "@/components/pagination-item";
 
 export default {
-  name: "qna-list",
+  name: "insurance-list",
   components: {
     PaginationItem,
     SearchForm,
@@ -177,19 +178,19 @@ export default {
         placeholder: "검색어를 입력해주세요.",
       },
       tabList: {
-        active: 1,
+        active: '',
         list: [
           {
             title: "전체",
-            id: 1,
+            id: '',
           },
           {
             title: "생보",
-            id: 2,
+            id: '1',
           },
           {
             title: "손보",
-            id: 3,
+            id: '2',
           },
         ],
       },
@@ -244,15 +245,11 @@ export default {
           inscoNm: this.searchValue,
           lpicDvCd: this.tabList.active,
         });
-        console.log("getInsuranceList", response);
-
         this.paginationInfo.total = response.data.totalElements;
         this.boardContent = await response.data.list;
+        console.log(response.data);
       } catch (err) {
         console.log(err);
-        this.boardContent = [];
-      } finally {
-        console.log("getInsuranceList finally");
       }
     },
   },

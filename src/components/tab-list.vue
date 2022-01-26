@@ -27,32 +27,34 @@ export default {
   },
   created() {
     if (
-      this.tabList.some(
-        (el) => el.id === parseInt(this.$route.query[this.name])
-      )
-    ) {
-      let num = parseInt(this.$route.query[this.name]);
-      this.$emit("activeChange", num || this.list[0].id);
+      this.tabList.some((el) => el.id === this.$route.query[this.name])) {
+      let num = this.$route.query[this.name];
+      console.log('created activechange')
+      this.$emit("activeChange", num || this.tabList[0].id);
     }
   },
   watch: {
     "$route.query"(to, from) {
       if (from[this.name] !== to[this.name]) {
-        this.$emit("activeChange", parseInt(to[this.name]) || this.list[0].id);
-        //this.$emit("change");
+        this.$emit("update:page", 1);
+        this.$emit("change");
+      }
+    },
+    active(to, from) {
+      console.log("active event");
+      if (from !== to) {
+        this.$router
+          .push({
+            query: { ...this.$route.query, [this.name]: to },
+          })
+          .catch(() => {});
       }
     },
   },
   methods: {
     tabClick(id) {
-      if (id === this.$route.query[this.name]) return;
-      this.$router
-        .push({
-          query: { ...this.$route.query, [this.name]: id },
-        })
-        .catch(() => {});
+      console.log("tabEvent");
       this.$emit("activeChange", id);
-      console.log(id);
     },
   },
   model: {

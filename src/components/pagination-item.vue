@@ -96,26 +96,26 @@ export default {
     event: "activeChange",
   },
   watch: {
-    "$route.query"(to, from) {
-      if (from[this.name] !== to[this.name]) { //페이지가 변한 경우
-        console.log(to[this.name]);
-        this.$emit("activeChange", to[this.name]);
-        this.$emit("change");
-        console.log("페이지가 변한 경우");
-      } else { //페이지가 변하지 않은 경우
-        this.$emit("activeChange", "1");
+    '$route.query'(to, from) {
+      if (from[this.name] !== to[this.name]) {
+        this.$emit('activeChange', to[this.name]);
+      }
+    },
+    // activeUpdate이벤트로 page query가 바뀌었을 때
+    activePage(to, from) {
+      if (from !== to) {
         this.$router
-          .replace({ query: { ...this.$route.query, page: "1" } })
-          .catch(() => {});
-        this.$emit("change");
-        console.log("페이지가 변하지 않은 경우");
+            .push({
+              query: { ...this.$route.query, [this.name]: to },
+            })
+            .catch(() => {});
       }
     },
   },
   methods: {
     activeUpdate(num) {
-      this.$router.push({ query: { ...this.$route.query, page: num } });
       this.$emit("activeChange", num);
+      this.$emit('change');
     },
   },
   created() {

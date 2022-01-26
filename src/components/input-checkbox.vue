@@ -15,6 +15,33 @@
       v-bind="$attrs"
       v-on="inputListeners"
     />
+    <i class="icon-checkbox"></i>
+  </label>
+  <label
+    v-else
+    :class="{
+      'input-checkbox': true,
+      'all-check': allCheck,
+      'agree-list': type === 'agree',
+      checked: checked.some((checkedItem) => {
+        checkedItem === val;
+      }),
+      disabled: disabled,
+      focused: focused,
+    }"
+  >
+    <input
+      type="checkbox"
+      :checked="
+        checked.some((checkedItem) => {
+          checkedItem === val;
+        })
+      "
+      :disabled="disabled"
+      v-bind="$attrs"
+      v-on="inputListeners"
+    />
+    <i class="icon-checkbox"></i>
   </label>
 </template>
 
@@ -25,7 +52,7 @@ export default {
   data() {
     return {
       focused: false,
-    }
+    };
   },
   props: {
     checked: {
@@ -34,6 +61,7 @@ export default {
     },
     val: String,
     disabled: Boolean,
+    type: String,
   },
   computed: {
     isBoolean() {

@@ -53,7 +53,6 @@ export default {
       return t;
     },
     searchSubmit(e) {
-      console.log("폼 제출");
       const formData = new FormData(e.target);
       const formProps = Object.fromEntries(formData);
       const route = this.queryMerge(this.$route.query, formProps);
@@ -63,10 +62,8 @@ export default {
   },
   mounted() {
     const formData = new FormData(this.$refs.form);
-    console.log(formData);
     // **  fromEntries : [['keyword', 'red'],['select', '2']] 를 {keyword: "red", select: "2"} 로
     const formProps = Object.fromEntries(formData);
-    console.log("formProps: ", formProps); // formProps: {keyword: "red", select "2"}
 
     // ** Object.keys : 키값만 뽑아내서 배열로 만듦 {"keyword","page"}
     // this.$route.query ex) { keyword: '어쩌고검색', select: "2" }
@@ -75,8 +72,6 @@ export default {
         key // router에 있는 query들의 key값과 form의 검색조건들의 교집합 만들기
       ) => Object.keys(formProps).includes(key)
     );
-    console.log("difference", difference); //['keyword']
-    console.log("네임이 키워드", this.$refs.form["keyword"]);
     difference.forEach((x) => {
       this.$refs.form[x].value = this.$route.query[x]; //라우터에 있는 value로 input값을 입력
       if (this.$refs.form[x].selectedIndex === -1) {

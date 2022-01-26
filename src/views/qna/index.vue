@@ -1,7 +1,7 @@
 <template>
   <div>
-    <keep-alive include="qnaList, qnaDetail" :max="5">
-        <router-view />
+    <keep-alive :include="['qna-list', 'qna-detail']" :max="5">
+      <router-view />
     </keep-alive>
   </div>
 </template>
