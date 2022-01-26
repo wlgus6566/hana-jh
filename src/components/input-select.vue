@@ -1,7 +1,7 @@
 <template>
   <div
       :class="{
-         'select-wrap': true,
+         'form-select': true,
          sort: type === 'sort',
          maxWidth: maxWidth,
          focused: focused,
@@ -46,7 +46,8 @@ export default {
     disabled: Boolean,
     error: String,
     placeholder: String,
-    maxWidth: Boolean
+    maxWidth: Boolean,
+    value: String,
   },
   model: {
     event: 'selectChange',
@@ -78,7 +79,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.select-wrap {
+.form-select {
   position: relative;
   flex: 1 1 auto;
   background: #fff;

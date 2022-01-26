@@ -1,7 +1,7 @@
 <template>
   <div
     :class="{
-      'input-wrap': true,
+      'form-input': true,
       disabled: disabled,
       focused: focused,
       placeholder: !value,
@@ -51,8 +51,7 @@ export default {
   computed: {
     listeners() {
       return {
-        ...this.$listeners, // 모든 부모 이벤트리스너를 전달
-        // 특정 이벤트의 행동을 오버라이딩
+        ...this.$listeners,
         focusin: (event) => {
           this.focused = true;
           this.$emit("focusin", event);
@@ -76,7 +75,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.input-wrap {
+.form-input {
   display: flex;
   flex: 1 1 auto;
   align-items: center;

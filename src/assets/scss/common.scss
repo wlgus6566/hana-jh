@@ -220,7 +220,6 @@ body {
   }
 }
 
-
 .search-detail {
   i {
     display: inline-block;
@@ -258,7 +257,6 @@ body {
       auto;
   }
 }
-
 
 .bullet-list {
   margin-top: 10px;
@@ -299,6 +297,35 @@ body {
     align-items: center;
     .select-wrap {
       margin-left: 20px;
+    }
+  }
+}
+
+/*signup*/
+.sign-form-wrap {
+  margin-top: 50px;
+  li {
+    display: flex;
+    .key {
+      min-width: 236px;
+      padding-top: 12px;
+    }
+    .val-wrap {
+      flex: 1 1 auto;
+      color: $gray-70;
+      &.half-wrap {
+        display: flex;
+        flex-wrap: wrap;
+        [class^="form-"] {
+          width: calc((100% - 10px) / 2);
+          + [class^="form-"] {
+            margin-left: 10px;
+          }
+        }
+      }
+    }
+    & + li {
+      margin-top: 30px;
     }
   }
 }

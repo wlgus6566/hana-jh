@@ -6,28 +6,31 @@
         <ul class="sign-form-wrap">
           <li>
             <strong class="key"><span class="txt">이름</span></strong>
-            <input-text
-              v-model="form.cchId.value"
-              :disabled="form.name.length > 0"
-            />
+            <div class="val-wrap">
+              <input-text
+                v-model="form.name"
+                :disabled="form.name.length > 0"
+              />
+            </div>
           </li>
           <li>
             <strong class="key"><span class="txt">휴대폰 번호</span></strong>
-            <input-text
-              v-model="form.phone"
-              :error="form.cchId.error"
-              placeholder="아이디를 입력해주세요."
-            />
+            <div class="val-wrap">
+              <input-text
+                v-model="form.phone"
+                :disabled="form.phone.length > 0"
+              />
+            </div>
           </li>
           <li>
             <strong class="key"><span class="txt">아이디</span></strong>
             <div class="val-wrap">
               <input-text
-                v-model="form.ccId.value"
+                v-model="form.cchId.value"
                 :error="form.cchId.error"
                 placeholder="아이디를 입력해주세요."
               />
-              <bullet-list :lists="idBulletList" />
+              <bullet-list :lists="idBulletLists" />
             </div>
           </li>
           <li>
@@ -39,7 +42,7 @@
                 placeholder="비밀번호를 입력해주세요."
                 type="password"
               />
-              <bullet-list :lists="pwBulletList" />
+              <bullet-list :lists="pwBulletLists" />
             </div>
           </li>
           <li>
@@ -51,12 +54,12 @@
                 placeholder="비밀번호를 한번 더 입력해주세요."
                 type="password"
               />
-              <bullet-list :lists="pwBulletList" />
+              <bullet-list :lists="pwBulletLists" />
             </div>
           </li>
           <li>
             <strong class="key"><span class="txt">이메일</span></strong>
-            <div class="val-wrap email-wrap">
+            <div class="val-wrap half-wrap">
               <input-text
                 v-model="form.emlAdr.value"
                 placeholder="이메일을 입력해주세요."
@@ -101,7 +104,7 @@ export default {
         emlAdr: {
           value: "",
         },
-        email0: {
+        email: {
           value: "",
           options: [
             { value: "naver", label: "naver.com" },
@@ -346,8 +349,8 @@ export default {
           ],
         },
       },
-      idbulletList: ["아이디는 최소 3글자 이상 입력해주세요."],
-      pwbulletList: [
+      idBulletLists: ["아이디는 최소 3글자 이상 입력해주세요."],
+      pwBulletLists: [
         "비밀번호는 영문/숫자/특수문자 2가지 이상 조합으로 6~12자이어야 합니다.",
       ],
     };

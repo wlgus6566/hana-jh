@@ -3,6 +3,7 @@
     v-if="isBoolean"
     :class="{
       'input-checkbox': true,
+      'all-check': allCheck,
       disabled: disabled,
       checked: checked,
       focused: focused,
@@ -52,6 +53,7 @@ export default {
   data() {
     return {
       focused: false,
+      allCheck: false,
     };
   },
   props: {
@@ -88,7 +90,10 @@ export default {
             } else {
               this.checked.push(this.val);
             }
+            this.$emit("selectChange", this.checked);
+            this.$emit("change", event);
           }
+
           this.$emit("change", event);
         },
       };
